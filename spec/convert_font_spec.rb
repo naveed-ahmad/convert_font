@@ -47,4 +47,13 @@ describe ConvertFont::Converter do
     converter.convert(File.dirname(__FILE__) + "/convert_font/SourceSansPro-Regular.otf", [:woff], File.dirname(__FILE__) + "/convert_font/")
     expect(File.file?(font_file)).to be true
   end
+
+  it "should set output filename" do
+    font_file = File.dirname(__FILE__) + "/convert_font/SourceSansPro-Regular.woff"
+    FileUtils.rm_rf font_file if File.file?(font_file)
+    converter.convert(File.dirname(__FILE__) + "/convert_font/SourceSansPro-Regular.otf", [:woff], File.dirname(__FILE__) + "/convert_font/", "newName")
+
+    new_font_file = File.dirname(__FILE__) + "/convert_font/newName.woff"
+    expect(File.file?(new_font_file)).to be true
+  end
 end

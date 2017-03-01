@@ -30,6 +30,10 @@ opt_parser = OptionParser.new do |opt|
   opt.on("-c", "--cleanup CLEANUP", "If you DON'T want the downloaded .tar.gz files to be cleaned up, ex. -c false") do |cleanup|
     options[:cleanup] = cleanup
   end
+
+  opt.on("-o", "--output_file FILE", "Output file name. If ommitted the fontfaimly will be used as file name") do |output_file|
+    options[:output_file] = output_file
+  end
 end
 
 opt_parser.parse!
@@ -48,7 +52,7 @@ if ARGV[0]
   elsif options[:formats].nil? || options[:formats].count <= 0
     puts "Please provide at least one format to convert to. 'convert_font --help'"
   else
-    converter.convert(options[:font_file], options[:formats], destination)
+    converter.convert(options[:font_file], options[:formats], destination, options[:output_file])
   end
 else
   puts opt_parser
